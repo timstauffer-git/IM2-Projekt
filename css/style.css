@@ -45,9 +45,16 @@ body {
 }
 
 .page {
-  max-width: var(--page-max-width);
+  width: min(100% - 160px, 1350px);
   margin: 0 auto;
-  padding: 48px 40px 32px;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: auto 380px;
+  gap: 140px;
+  align-items: start;
+  justify-content: center;
 }
 
 /* ========== Elemente ========== */
@@ -57,11 +64,10 @@ body {
 /* ========== Header ========== */
 
 .hero {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-  padding: 40px 40px 0;
+  width: min(100% - 160px, 1350px);
+  margin: 0 auto 32px;
+  padding-top: 48px;
   text-align: center;
-  margin-bottom: 5px;
 }
 
 .hero-title {
@@ -82,28 +88,22 @@ body {
   color: var(--color-darkblue);
 }
 
-/* ========== Hauptbereich mit Memory und Leaderboard ========== */
-
-.game-layout {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 96px;
-  align-items: start;
-}
-
 /* ========== Memory ========== */
 
 .memory {
+  --memory-gap: 18px;
+  --memory-card-size: clamp(145px, calc((100vh - 240px) / 4), 180px);
+
   display: grid;
-  grid-template-columns: repeat(4, 135px);
-  gap: 16px;
+  grid-template-columns: repeat(4, var(--memory-card-size));
+  gap: var(--memory-gap);
 }
 
 .memory-card {
-  width: 135px;
+  width: var(--memory-card-size);
   aspect-ratio: 1;
   border: none;
-  border-radius: 4px;
+  border-radius: 16px;
   cursor: pointer;
 }
 
@@ -113,4 +113,49 @@ body {
 
 .memory-card--white {
   background-color: var(--color-white);
+}
+
+/* ========== Leaderboard ========== */
+
+.leaderboard {
+  width: 470px;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+.leaderboard-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 150px;
+  align-items: center;
+  min-height: 76px;
+  padding: 0 28px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-primary);
+  font-size: 58px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.leaderboard-item--active {
+  background-color: var(--color-blue);
+}
+
+.leaderboard-rank {
+  text-align: left;
+  font-family: var(--font-title);
+}
+
+.leaderboard-name {
+  text-align: left;
+}
+
+.leaderboard-score {
+  text-align: right;
 }
