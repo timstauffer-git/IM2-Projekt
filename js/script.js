@@ -1,1 +1,1 @@
-console.log("blub");
+// Main JavaScript file

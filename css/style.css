@@ -4,8 +4,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-grey: #2F2F2F;
+    --color-blue: #8BC5E4;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+}
 
 body {
-    background-color: pink;
+    background-color: var(--color-grey);
 }
 
