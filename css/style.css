@@ -1,17 +1,17 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --color-grey: #2F2F2F;
-    --color-blue: #8BC5E4;
-    --color-black: #000000;
-    --color-white: #FFFFFF;
+  --color-grey: #2f2f2f;
+  --color-blue: #8bc5e4;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-darkblue: #a5b8cc;
 }
 
 body {
-    background-color: var(--color-grey);
+  background-color: var(--color-grey);
 }
-
