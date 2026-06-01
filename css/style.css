@@ -1,3 +1,6 @@
+/* ========== Grundlagen ========== */
+/* ========== Grundlagen ========== */
+/* ========== Grundlagen ========== */
 * {
   margin: 0;
   padding: 0;
@@ -31,6 +34,8 @@
 }
 
 /* ========== Grundlayout ========== */
+/* ========== Grundlayout ========== */
+/* ========== Grundlayout ========== */
 
 body {
   min-height: 100vh;
@@ -46,6 +51,66 @@ body {
 }
 
 /* ========== Elemente ========== */
+/* ========== Elemente ========== */
+/* ========== Elemente ========== */
+
+/* ========== Header ========== */
+
+.hero {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 40px 40px 0;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
 .hero-title {
   font-family: var(--font-title);
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 4px;
+  color: var(--color-white);
+}
+
+.hero-subtitle {
+  margin-top: 24px;
+  font-family: var(--font-primary);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-darkblue);
+}
+
+/* ========== Hauptbereich mit Memory und Leaderboard ========== */
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 96px;
+  align-items: start;
+}
+
+/* ========== Memory ========== */
+
+.memory {
+  display: grid;
+  grid-template-columns: repeat(4, 135px);
+  gap: 16px;
+}
+
+.memory-card {
+  width: 135px;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.memory-card--black {
+  background-color: var(--color-black);
+}
+
+.memory-card--white {
+  background-color: var(--color-white);
 }
