@@ -13,11 +13,68 @@
       <h1 class="hero-title">Ice the year</h1>
       <p class="hero-subtitle">Cold quotes. Sharp memory.</p>
     </header>
+
     <main class="page">
-      <!-- Hauptbereich mit Memory und Leaderboard -->
+      <!-- Hauptbereich mit Memory, Anleitung und Leaderboard -->
       <section class="game-layout">
-        <!-- Memory-Spielfeld -->
-        <section class="memory" aria-label="Memory-Spiel"></section>
+        <!-- Linker Spielbereich mit Memory und Spielanleitung -->
+        <section class="game-board">
+          <!-- Layer für Memory und Anleitung -->
+          <div class="memory-layer">
+            <!-- Memory-Spielfeld -->
+            <section class="memory" aria-label="Memory-Spiel"></section>
+
+            <!-- Eingeblendete Anleitung über dem Memory -->
+            <div class="instructions-content">
+              <h2>Spielanleitung</h2>
+
+              <p>
+                Klicke auf „Start Race“, um das Spiel zu starten. Ziel ist es,
+                das Memory mit so wenigen Klicks wie möglich zu lösen. Je
+                weniger Versuche du brauchst, desto besser ist deine
+                Performance.
+              </p>
+
+              <p>
+                Das Spielfeld besteht aus Kartenpaaren. Die Farbe spielt dabei
+                keine Rolle. Auf der Hälfte der Karten findest du Zitate von
+                Kimi Räikkönen, auf der anderen Hälfte die dazugehörigen
+                Jahreszahlen. Deine Aufgabe ist es, die passenden Paare zu
+                finden, also jedes Zitat mit dem richtigen Jahr zu verbinden.
+                Wenn zwei Karten zusammenpassen, bleiben sie aufgedeckt. Wenn
+                nicht, drehen sie sich wieder um. Versuche dir die Positionen zu
+                merken und finde alle Paare. Am Ende wirst du je nach Anzahl
+                deiner Klicks eingestuft. Schaffst du es zum/zur Kimi-Expert:in
+                oder bleibst du im Mittelfeld?
+              </p>
+
+              <h2>Über Kimi Räikkönen</h2>
+
+              <p>
+                Kimi Räikkönen, auch bekannt als „The Iceman“, ist einer der
+                bekanntesten Fahrer der Formel 1. Er wurde 2007 Weltmeister und
+                ist vor allem für seine ruhige, direkte Art bekannt. Neben
+                seiner Karriere ist er besonders durch seine legendären
+                Funksprüche berühmt geworden. Seine Zitate sind kurz, trocken
+                und oft unfreiwillig komisch – genau das macht sie so ikonisch.
+              </p>
+
+              <p>„Leave me alone, I know what I’m doing.“</p>
+            </div>
+          </div>
+
+          <!-- Button für Spielanleitung -->
+          <section class="instructions">
+            <button
+              class="instructions-toggle"
+              type="button"
+              aria-expanded="false"
+            >
+              <span class="instructions-arrow">⌄</span>
+              <span class="instructions-label">Spielanleitung</span>
+            </button>
+          </section>
+        </section>
 
         <!-- Leaderboard -->
         <aside class="leaderboard" aria-label="Leaderboard">
@@ -89,49 +146,6 @@
             </li>
           </ol>
         </aside>
-      </section>
-
-      <!-- Aufklappbare Spielanleitung -->
-      <section class="instructions">
-        <button class="instructions-toggle" type="button" aria-expanded="false">
-          <span class="instructions-arrow">⌄</span>
-          <span class="instructions-label">Spielanleitung</span>
-        </button>
-
-        <div class="instructions-content">
-          <h2>Spielanleitung</h2>
-
-          <p>
-            Klicke auf „Start Race“, um das Spiel zu starten. Ziel ist es, das
-            Memory mit so wenigen Klicks wie möglich zu lösen. Je weniger
-            Versuche du brauchst, desto besser ist deine Performance.
-          </p>
-
-          <p>
-            Das Spielfeld besteht aus Kartenpaaren. Die Farbe spielt dabei keine
-            Rolle. Auf der Hälfte der Karten findest du Zitate von Kimi
-            Räikkönen, auf der anderen Hälfte die dazugehörigen Jahreszahlen.
-            Deine Aufgabe ist es, die passenden Paare zu finden, also jedes
-            Zitat mit dem richtigen Jahr zu verbinden. Wenn zwei Karten
-            zusammenpassen, bleiben sie aufgedeckt. Wenn nicht, drehen sie sich
-            wieder um. Versuche dir die Positionen zu merken und finde alle
-            Paare. Am Ende wirst du je nach Anzahl deiner Klicks eingestuft.
-            Schaffst du es zum/zur Kimi-Expert:in oder bleibst du im Mittelfeld?
-          </p>
-
-          <h2>Über Kimi Räikkönen</h2>
-
-          <p>
-            Kimi Räikkönen, auch bekannt als „The Iceman“, ist einer der
-            bekanntesten Fahrer der Formel 1. Er wurde 2007 Weltmeister und ist
-            vor allem für seine ruhige, direkte Art bekannt. Neben seiner
-            Karriere ist er besonders durch seine legendären Funksprüche berühmt
-            geworden. Seine Zitate sind kurz, trocken und oft unfreiwillig
-            komisch – genau das macht sie so ikonisch.
-          </p>
-
-          <p>„Leave me alone, I know what I’m doing.“</p>
-        </div>
       </section>
     </main>
 
