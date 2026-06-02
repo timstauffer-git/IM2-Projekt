@@ -87,8 +87,8 @@ body {
 /* ========== Memory ========== */
 
 .memory {
-  --memory-gap: 14px;
-  --memory-card-size: clamp(105px, calc((100vh - 240px) / 5), 145px);
+  --memory-gap: 18px;
+  --memory-card-size: clamp(130px, calc((100vh - 240px) / 4), 170px);
 
   display: grid;
   grid-template-columns: repeat(4, var(--memory-card-size));

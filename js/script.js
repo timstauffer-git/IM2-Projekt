@@ -94,28 +94,6 @@ const cardData = [
     type: "quote",
     content: "We try again next time.",
   },
-
-  {
-    pairId: 9,
-    type: "year",
-    content: "2023",
-  },
-  {
-    pairId: 9,
-    type: "quote",
-    content: "It was okay.",
-  },
-
-  {
-    pairId: 10,
-    type: "year",
-    content: "2024",
-  },
-  {
-    pairId: 10,
-    type: "quote",
-    content: "Let's see.",
-  },
 ];
 
 // ----- Spielzustand (Karte1, Karte2, Speere wenn zwei Karten aufgedeckt)  -----
