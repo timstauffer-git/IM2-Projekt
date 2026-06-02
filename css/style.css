@@ -88,14 +88,13 @@ body {
 
 .memory {
   --memory-gap: 14px;
-  --memory-card-size: clamp(105px, calc((100vh - 240px) / 4), 145px);
+  --memory-card-size: clamp(105px, calc((100vh - 240px) / 5), 145px);
 
   display: grid;
-  grid-template-columns: repeat(5, var(--memory-card-size));
+  grid-template-columns: repeat(4, var(--memory-card-size));
   gap: var(--memory-gap);
 }
 
-/* Memorykarte */
 .memory-card {
   width: var(--memory-card-size);
   aspect-ratio: 1;
