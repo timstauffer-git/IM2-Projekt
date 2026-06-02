@@ -5,8 +5,11 @@ const memory = document.querySelector(".memory");
 const instructions = document.querySelector(".instructions");
 const instructionsToggle = document.querySelector(".instructions-toggle");
 
-// ----- Kartendaten mit jeweiliger ID -----
-const cardData = [
+// ----- API -----
+const API_URL = "https://kimiquotes.pages.dev/api/quotes";
+
+// ----- Kartendaten mit jeweiliger ID, falls API nicht lädt -----
+const fallbackData = [
   {
     pairId: 1,
     type: "year",
@@ -101,9 +104,8 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 
-
 // ----- Spielstart -----
-createCards();
+startGame();
 
 memory.addEventListener("click", handleCardClick);
 
@@ -111,8 +113,67 @@ if (instructionsToggle) {
   instructionsToggle.addEventListener("click", toggleInstructions);
 }
 
+// ----- API-Daten laden und Spiel starten -----
+async function startGame() {
+  try {
+    const quotes = await fetchQuotes();
+
+    console.log("API Daten:", quotes);
+
+    const cardData = createCardDataFromQuotes(quotes);
+
+    createCards(cardData);
+  } catch (error) {
+    console.error("API konnte nicht geladen werden:", error);
+
+    createCards(fallbackData);
+  }
+}
+
+// ----- Daten von API holen -----
+async function fetchQuotes() {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error("Fehler beim Laden der API");
+  }
+
+  const data = await response.json();
+
+  return data;
+}
+
+// ----- API-Daten in Memory-Karten umwandeln -----
+function createCardDataFromQuotes(quotes) {
+  const quotesWithYear = quotes.filter((quote) => quote.year);
+
+  const selectedQuotes = shuffleCards(quotesWithYear).slice(0, 8);
+
+  const cards = [];
+
+  selectedQuotes.forEach((quote, index) => {
+    const pairId = index + 1;
+
+    cards.push({
+      pairId: pairId,
+      type: "year",
+      content: String(quote.year),
+    });
+
+    cards.push({
+      pairId: pairId,
+      type: "quote",
+      content: quote.quote,
+    });
+  });
+
+  return cards;
+}
+
 // ----- Karten-Erzeugung -----
-function createCards() {
+function createCards(cardData) {
+  memory.innerHTML = "";
+
   const shuffledCards = shuffleCards(cardData);
 
   shuffledCards.forEach((card, index) => {
@@ -192,7 +253,7 @@ function resetTurn() {
   lockBoard = false;
 }
 
-// ----- Msichen der Karten -----
+// ----- Mischen der Karten -----
 function shuffleCards(cards) {
   return [...cards].sort(() => Math.random() - 0.5);
 }
