@@ -1,6 +1,5 @@
-/* ========== Grundlagen ========== */
-/* ========== Grundlagen ========== */
-/* ========== Grundlagen ========== */
+/* --------------------- Grundlagen --------------------- */
+
 * {
   margin: 0;
   padding: 0;
@@ -27,15 +26,13 @@
   --color-blue: #8bc5e4;
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-darkblue: #a5b8cc;
 
   --font-primary: "PrimaryFont", Arial, Helvetica, sans-serif;
   --font-title: "TitleFont", Arial, Helvetica, sans-serif;
 }
 
-/* ========== Grundlayout ========== */
-/* ========== Grundlayout ========== */
-/* ========== Grundlayout ========== */
+
+/* --------------------- Grundlayout --------------------- */
 
 body {
   min-height: 100vh;
@@ -57,9 +54,8 @@ body {
   justify-content: center;
 }
 
-/* ========== Elemente ========== */
-/* ========== Elemente ========== */
-/* ========== Elemente ========== */
+/* --------------------- Elemente --------------------- */
+
 
 /* ========== Header ========== */
 
@@ -85,34 +81,80 @@ body {
   font-size: 30px;
   font-weight: 400;
   line-height: 1.2;
-  color: var(--color-darkblue);
+  color: var(--color-blue);
 }
 
 /* ========== Memory ========== */
 
 .memory {
-  --memory-gap: 18px;
-  --memory-card-size: clamp(150px, calc((100vh - 220px) / 4), 190px);
+  --memory-gap: 14px;
+  --memory-card-size: clamp(105px, calc((100vh - 240px) / 4), 145px);
 
   display: grid;
-  grid-template-columns: repeat(4, var(--memory-card-size));
+  grid-template-columns: repeat(5, var(--memory-card-size));
   gap: var(--memory-gap);
 }
 
+/* Memorykarte */
 .memory-card {
   width: var(--memory-card-size);
   aspect-ratio: 1;
   border: none;
   border-radius: 16px;
   cursor: pointer;
+  background: none;
+  perspective: 1000px;
 }
 
-.memory-card--black {
+.memory-card-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.memory-card.is-flipped .memory-card-inner,
+.memory-card.is-matched .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card-front,
+.memory-card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+}
+
+.memory-card-back {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  font-family: var(--font-primary);
+  font-size: 26px;
+  line-height: 1.05;
+  text-align: center;
+  transform: rotateY(180deg);
+}
+
+/* Memorykarte Schwarz */
+.memory-card--black .memory-card-front,
+.memory-card--black .memory-card-back {
   background-color: var(--color-black);
+  color: var(--color-white);
 }
 
-.memory-card--white {
+/* Memorykarte Weiss */
+.memory-card--white .memory-card-front,
+.memory-card--white .memory-card-back {
   background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.memory-card.is-matched {
+  cursor: default;
 }
 
 /* ========== Leaderboard ========== */
@@ -174,7 +216,7 @@ body {
   gap: 12px;
   border: none;
   background: none;
-  color: var(--color-darkblue);
+  color: var(--color-blue);
   font-family: var(--font-primary);
   font-size: 28px;
   line-height: 1;
