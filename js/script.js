@@ -285,6 +285,7 @@ function handleCardClick(event) {
   const clickedCard = event.target.closest(".memory-card");
 
   if (!clickedCard) return;
+  if (isGameLocked) return;
   if (lockBoard) return;
   if (clickedCard === firstCard) return;
   if (clickedCard.classList.contains("is-matched")) return;
@@ -406,6 +407,7 @@ const lottieRaceContainer = document.querySelector("#lottieRaceContainer");
 
 let raceAnimation = null;
 let isGameLocked = true;
+let isRaceAnimationRunning = false;
 
 if (lottieRaceContainer) {
   raceAnimation = lottie.loadAnimation({
@@ -413,19 +415,23 @@ if (lottieRaceContainer) {
     renderer: "svg",
     loop: false,
     autoplay: false,
-    path: "animations/start-race.json",
+    path: "animations/start_race.json",
   });
 
   raceAnimation.addEventListener("DOMLoaded", () => {
     raceAnimation.goToAndStop(0, true);
   });
 
-  raceAnimation.addEventListener("complete", () => {
-    lottieRaceOverlay.classList.add("is-hidden");
-    isGameLocked = false;
-  });
+raceAnimation.addEventListener("complete", () => {
+  lottieRaceOverlay.classList.add("is-hidden");
+  isGameLocked = false;
+  isRaceAnimationRunning = false;
+});
 
   lottieRaceContainer.addEventListener("click", () => {
-    raceAnimation.goToAndPlay(0, true);
-  });
+  if (isRaceAnimationRunning) return;
+
+  isRaceAnimationRunning = true;
+  raceAnimation.goToAndPlay(0, true);
+});
 }
