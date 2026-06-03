@@ -21,6 +21,16 @@
         <section class="game-board">
           <!-- Layer für Memory und Anleitung -->
           <div class="memory-layer">
+            <!-- Lottie Start-/Restart-Overlay -->
+            <div class="lottie-race-overlay" id="lottieRaceOverlay">
+              <div
+                class="lottie-race-container"
+                id="lottieRaceContainer"
+                role="button"
+                tabindex="0"
+                aria-label="Race starten"
+              ></div>
+            </div>
             <!-- Memory-Spielfeld -->
             <section class="memory" aria-label="Memory-Spiel"></section>
 
@@ -138,7 +148,6 @@
               <span class="leaderboard-name">GRO</span>
               <span class="leaderboard-score">OUT</span>
             </li>
-
           </ol>
         </aside>
       </section>
@@ -147,7 +156,7 @@
     <footer>
       <p>Ice the year ©2026</p>
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.13.0/lottie.min.js"></script>
     <script src="js/script.js" type="module"></script>
   </body>
 </html>

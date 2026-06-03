@@ -398,3 +398,34 @@ function toggleInstructions() {
 
   instructionsToggle.setAttribute("aria-expanded", isOpen);
 }
+
+// ----- Lottie Race Overlay -----
+
+const lottieRaceOverlay = document.querySelector("#lottieRaceOverlay");
+const lottieRaceContainer = document.querySelector("#lottieRaceContainer");
+
+let raceAnimation = null;
+let isGameLocked = true;
+
+if (lottieRaceContainer) {
+  raceAnimation = lottie.loadAnimation({
+    container: lottieRaceContainer,
+    renderer: "svg",
+    loop: false,
+    autoplay: false,
+    path: "animations/start-race.json",
+  });
+
+  raceAnimation.addEventListener("DOMLoaded", () => {
+    raceAnimation.goToAndStop(0, true);
+  });
+
+  raceAnimation.addEventListener("complete", () => {
+    lottieRaceOverlay.classList.add("is-hidden");
+    isGameLocked = false;
+  });
+
+  lottieRaceContainer.addEventListener("click", () => {
+    raceAnimation.goToAndPlay(0, true);
+  });
+}

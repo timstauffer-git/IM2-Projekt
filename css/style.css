@@ -274,13 +274,20 @@ body {
 /* ========== Leaderboard ========== */
 
 .leaderboard {
+  --leaderboard-rows: 11;
+  --leaderboard-gap: 16px;
+  --leaderboard-padding-x: 24px;
+  --leaderboard-font-size: clamp(36px, calc(var(--memory-size) / 14), 52px);
+
   width: var(--leaderboard-width);
+  height: var(--memory-size);
 }
 
 .leaderboard-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-rows: repeat(var(--leaderboard-rows), minmax(0, 1fr));
+  gap: var(--leaderboard-gap);
+  height: 100%;
   list-style: none;
 }
 
@@ -288,12 +295,12 @@ body {
   display: grid;
   grid-template-columns: 90px 1fr 135px;
   align-items: center;
-  min-height: 68px;
-  padding: 0 24px;
+  min-height: 0;
+  padding: 0 var(--leaderboard-padding-x);
   background-color: var(--color-white);
   color: var(--color-black);
   font-family: var(--font-primary);
-  font-size: 52px;
+  font-size: var(--leaderboard-font-size);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 2px;
@@ -314,4 +321,38 @@ body {
 
 .leaderboard-score {
   text-align: right;
+}
+
+/* ----- Lottie Race Overlay ----- */
+
+.memory-layer {
+  position: relative;
+}
+
+.lottie-race-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: auto;
+}
+
+.lottie-race-overlay.is-hidden {
+  display: none;
+}
+
+.lottie-race-container {
+  width: 360px;
+  height: 360px;
+  cursor: pointer;
+}
+
+.lottie-race-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
