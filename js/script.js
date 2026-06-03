@@ -375,11 +375,11 @@ function updateLeaderboard() {
     let displayedScore;
 
     if (entry.score === Infinity) {
-      displayedScore = "OUT";
-    } else if (entry.isPlayer) {
-      displayedScore = entry.score;
+    displayedScore = "OUT";
+    } else if (entry.isPlayer && entry.score === 0) {
+    displayedScore = "0";
     } else {
-      displayedScore = `+${entry.score}`;
+    displayedScore = `+${entry.score}`;
     }
 
     listItem.innerHTML = `
