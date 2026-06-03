@@ -219,16 +219,38 @@ body {
 }
 
 .instructions-arrow {
-  font-size: 34px;
-  line-height: 1;
-  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  color: var(--color-blue);
+  transform: rotate(0deg);
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+
+.instructions-arrow-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+/* Zustand: Anleitung offen */
+.game-board.is-instructions-open .instructions-arrow,
+.game-board:has(.instructions.is-open) .instructions-arrow {
+  transform: rotate(90deg);
 }
 
 .instructions-content {
   display: none;
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 30;
 
   width: 100%;
   height: 100%;
@@ -274,13 +296,14 @@ body {
 /* ========== Leaderboard ========== */
 
 .leaderboard {
-  --leaderboard-rows: 11;
+  --leaderboard-rows: 10;
   --leaderboard-gap: 16px;
+  --leaderboard-height: calc(var(--memory-size));
   --leaderboard-padding-x: 24px;
-  --leaderboard-font-size: clamp(36px, calc(var(--memory-size) / 14), 52px);
+  --leaderboard-font-size: clamp(44px, calc(var(--memory-size) / 12), 52px);
 
   width: var(--leaderboard-width);
-  height: var(--memory-size);
+  height: var(--leaderboard-height);
 }
 
 .leaderboard-list {
@@ -332,7 +355,7 @@ body {
 .lottie-race-overlay {
   position: absolute;
   inset: 0;
-  z-index: 30;
+  z-index: 20;
 
   display: flex;
   align-items: center;
