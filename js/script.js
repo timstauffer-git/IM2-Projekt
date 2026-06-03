@@ -500,6 +500,7 @@ function showStartRace() {
 
   if (lottieRaceOverlay) {
     lottieRaceOverlay.classList.remove("is-hidden");
+    lottieRaceOverlay.classList.remove("is-restart");
   }
 
   if (lottieRaceResult) {
@@ -557,6 +558,10 @@ async function handleRaceAnimationComplete() {
 
   if (raceMode === "restart") {
     await restartGame();
+
+    if (lottieRaceOverlay) {
+      lottieRaceOverlay.classList.remove("is-restart");
+    }
   }
 
   isGameLocked = false;
