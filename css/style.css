@@ -353,6 +353,9 @@ body {
   inset: 0;
   z-index: 20;
 
+  border-radius: var(--memory-card-radius);
+  background-color: var(--instructions-overlay-color);
+
   pointer-events: auto;
 }
 
@@ -360,20 +363,9 @@ body {
   display: none;
 }
 
-/* Blauer Hintergrund nur beim Restart */
-.lottie-race-overlay.is-restart::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-
-  border-radius: var(--memory-card-radius);
-  background-color: var(--instructions-overlay-color);
-}
-
 .lottie-race-result {
   position: absolute;
-  top: 42%;
+  top: 34%;
   left: 50%;
   z-index: 2;
 
@@ -382,9 +374,9 @@ body {
   width: 100%;
   padding: 0 40px;
 
-  color: var(--color-black);
+  color: var(--color-white);
   font-family: var(--font-title);
-  font-size: 38px;
+  font-size: clamp(34px, 5vw, 64px);
   line-height: 1.1;
   text-align: center;
   letter-spacing: 2px;
