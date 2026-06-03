@@ -155,6 +155,9 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let clickCount = 0;
+let matchedPairs = 0;
+let isGameFinished = false;
+let isGameLocked = true;
 
 // ----- Spielstart -----
 startGame();
@@ -292,6 +295,8 @@ function handleCardClick(event) {
 
   countClick();
 
+  if (isGameFinished) return;
+
   clickedCard.classList.add("is-flipped");
 
   if (!firstCard) {
@@ -308,9 +313,17 @@ function checkForMatch() {
   const isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
 
   if (isMatch) {
-    firstCard.classList.add("is-matched");
-    secondCard.classList.add("is-matched");
-    resetTurn();
+  firstCard.classList.add("is-matched");
+  secondCard.classList.add("is-matched");
+
+  matchedPairs++;
+
+  resetTurn();
+
+  if (matchedPairs === 8) {
+    endGame("finished");
+  }
+
   } else {
     lockBoard = true;
 
@@ -341,13 +354,14 @@ function countClick() {
   const player = leaderboardData.find((entry) => entry.isPlayer);
 
   if (clickCount >= OUT_LIMIT) {
-    player.score = Infinity;
-    lockBoard = true;
-  } else {
-    player.score = clickCount;
-  }
-
+  player.score = Infinity;
   updateLeaderboard();
+  endGame("out");
+  return;
+}
+
+player.score = clickCount;
+updateLeaderboard();
 }
 
 // ----- Leaderboard aktualisieren -----
@@ -393,6 +407,64 @@ function updateLeaderboard() {
   });
 }
 
+// ----- Spieler-Rang ermitteln -----
+function getPlayerRank() {
+  const sortedLeaderboard = [...leaderboardData].sort(
+    (entryA, entryB) => entryA.score - entryB.score
+  );
+
+  let currentRank = 1;
+
+  for (let index = 0; index < sortedLeaderboard.length; index++) {
+    const entry = sortedLeaderboard[index];
+
+    if (index > 0 && entry.score !== sortedLeaderboard[index - 1].score) {
+      currentRank = index + 1;
+    }
+
+    if (entry.isPlayer) {
+      return currentRank;
+    }
+  }
+}
+
+// ----- Spiel beenden -----
+function endGame(result) {
+  if (isGameFinished) return;
+
+  isGameFinished = true;
+  isGameLocked = true;
+  lockBoard = true;
+
+  if (result === "out") {
+    showRestartRace("You are Out");
+    return;
+  }
+
+  const finalRank = getPlayerRank();
+
+  showRestartRace(`Final Rank ${finalRank}`);
+}
+
+// ----- Spiel zurücksetzen und neu starten -----
+async function restartGame() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+  clickCount = 0;
+  matchedPairs = 0;
+  isGameFinished = false;
+
+  const player = leaderboardData.find((entry) => entry.isPlayer);
+  player.score = 0;
+
+  updateLeaderboard();
+
+  memory.innerHTML = "";
+
+  await startGame();
+}
+
 // ----- Anleitung Öffnen und Schliessen -----
 function toggleInstructions() {
   const isOpen = instructions.classList.toggle("is-open");
@@ -400,38 +472,92 @@ function toggleInstructions() {
   instructionsToggle.setAttribute("aria-expanded", isOpen);
 }
 
-// ----- Lottie Race Overlay -----
 
+// ----- Lottie Race Overlay -----
 const lottieRaceOverlay = document.querySelector("#lottieRaceOverlay");
 const lottieRaceContainer = document.querySelector("#lottieRaceContainer");
+const lottieRaceResult = document.querySelector("#lottieRaceResult");
 
 let raceAnimation = null;
-let isGameLocked = true;
 let isRaceAnimationRunning = false;
+let raceMode = "start";
 
 if (lottieRaceContainer) {
+  showStartRace();
+
+  lottieRaceContainer.addEventListener("click", () => {
+    if (isRaceAnimationRunning) return;
+    if (!raceAnimation) return;
+
+    isRaceAnimationRunning = true;
+    raceAnimation.goToAndPlay(0, true);
+  });
+}
+
+// ----- Start-Race anzeigen -----
+function showStartRace() {
+  raceMode = "start";
+
+  if (lottieRaceOverlay) {
+    lottieRaceOverlay.classList.remove("is-hidden");
+  }
+
+  if (lottieRaceResult) {
+    lottieRaceResult.textContent = "";
+  }
+
+  loadRaceAnimation("animations/start_race.json");
+}
+
+// ----- Restart-Race anzeigen -----
+function showRestartRace(message) {
+  raceMode = "restart";
+
+  if (lottieRaceOverlay) {
+    lottieRaceOverlay.classList.remove("is-hidden");
+  }
+
+  if (lottieRaceResult) {
+    lottieRaceResult.textContent = message;
+  }
+
+  loadRaceAnimation("animations/restart_race.json");
+}
+
+// ----- Lottie-Animation laden -----
+function loadRaceAnimation(path) {
+  if (!lottieRaceContainer) return;
+
+  if (raceAnimation) {
+    raceAnimation.destroy();
+  }
+
   raceAnimation = lottie.loadAnimation({
     container: lottieRaceContainer,
     renderer: "svg",
     loop: false,
     autoplay: false,
-    path: "animations/start_race.json",
+    path: path,
   });
 
   raceAnimation.addEventListener("DOMLoaded", () => {
     raceAnimation.goToAndStop(0, true);
   });
 
-raceAnimation.addEventListener("complete", () => {
-  lottieRaceOverlay.classList.add("is-hidden");
-  isGameLocked = false;
+  raceAnimation.addEventListener("complete", handleRaceAnimationComplete);
+}
+
+// ----- Nach Lottie-Animation -----
+async function handleRaceAnimationComplete() {
+  if (lottieRaceOverlay) {
+    lottieRaceOverlay.classList.add("is-hidden");
+  }
+
   isRaceAnimationRunning = false;
-});
 
-  lottieRaceContainer.addEventListener("click", () => {
-  if (isRaceAnimationRunning) return;
+  if (raceMode === "restart") {
+    await restartGame();
+  }
 
-  isRaceAnimationRunning = true;
-  raceAnimation.goToAndPlay(0, true);
-});
+  isGameLocked = false;
 }

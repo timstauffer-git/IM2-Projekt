@@ -358,10 +358,21 @@ body {
   z-index: 20;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   pointer-events: auto;
+}
+
+.lottie-race-result {
+  margin-bottom: 20px;
+  color: var(--color-white);
+  font-family: var(--font-title);
+  font-size: 36px;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: 2px;
 }
 
 .lottie-race-overlay.is-hidden {
