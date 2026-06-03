@@ -104,7 +104,7 @@ const fallbackData = [
 ];
 
 // ----- Leaderboard-Daten -----
-const OUT_LIMIT = 102;
+const OUT_LIMIT = 94;
 
 const leaderboardData = [
   {
