@@ -240,12 +240,6 @@ body {
   stroke-linejoin: round;
 }
 
-/* Zustand: Anleitung offen */
-.game-board.is-instructions-open .instructions-arrow,
-.game-board:has(.instructions.is-open) .instructions-arrow {
-  transform: rotate(90deg);
-}
-
 .instructions-content {
   display: none;
   position: absolute;
@@ -290,7 +284,7 @@ body {
 
 .game-board.is-instructions-open .instructions-arrow,
 .game-board:has(.instructions.is-open) .instructions-arrow {
-  transform: rotate(180deg);
+  transform: rotate(-90deg);
 }
 
 /* ========== Leaderboard ========== */
