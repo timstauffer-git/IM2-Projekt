@@ -104,6 +104,8 @@ const fallbackData = [
 ];
 
 // ----- Leaderboard-Daten -----
+const OUT_LIMIT = 102;
+
 const leaderboardData = [
   {
     name: "YOU",
@@ -112,42 +114,38 @@ const leaderboardData = [
   },
   {
     name: "HAM",
-    score: 22,
-  },
-  {
-    name: "LEC",
-    score: 26,
-  },
-  {
-    name: "ROS",
     score: 30,
   },
   {
-    name: "VET",
-    score: 34,
-  },
-  {
-    name: "HUL",
+    name: "LEC",
     score: 38,
   },
   {
-    name: "MAS",
-    score: 42,
-  },
-  {
-    name: "VER",
+    name: "ROS",
     score: 46,
   },
   {
-    name: "ALO",
-    score: 50,
-  },
-  {
-    name: "GRO",
+    name: "VET",
     score: 54,
   },
   {
-    name: "MAG",
+    name: "HUL",
+    score: 62,
+  },
+  {
+    name: "MAS",
+    score: 70,
+  },
+  {
+    name: "VER",
+    score: 78,
+  },
+  {
+    name: "ALO",
+    score: 86,
+  },
+  {
+    name: "GRO",
     score: Infinity,
   },
 ];
@@ -340,7 +338,13 @@ function countClick() {
   clickCount++;
 
   const player = leaderboardData.find((entry) => entry.isPlayer);
-  player.score = clickCount;
+
+  if (clickCount >= OUT_LIMIT) {
+    player.score = Infinity;
+    lockBoard = true;
+  } else {
+    player.score = clickCount;
+  }
 
   updateLeaderboard();
 }
@@ -353,7 +357,13 @@ function updateLeaderboard() {
 
   leaderboardList.innerHTML = "";
 
+  let currentRank = 1;
+
   sortedLeaderboard.forEach((entry, index) => {
+    if (index > 0 && entry.score !== sortedLeaderboard[index - 1].score) {
+      currentRank = index + 1;
+    }
+
     const listItem = document.createElement("li");
 
     listItem.classList.add("leaderboard-item");
@@ -362,10 +372,18 @@ function updateLeaderboard() {
       listItem.classList.add("leaderboard-item--active");
     }
 
-    const displayedScore = entry.score === Infinity ? "OUT" : entry.score;
+    let displayedScore;
+
+    if (entry.score === Infinity) {
+      displayedScore = "OUT";
+    } else if (entry.isPlayer) {
+      displayedScore = entry.score;
+    } else {
+      displayedScore = `+${entry.score}`;
+    }
 
     listItem.innerHTML = `
-      <span class="leaderboard-rank">${index + 1}</span>
+      <span class="leaderboard-rank">${currentRank}</span>
       <span class="leaderboard-name">${entry.name}</span>
       <span class="leaderboard-score">${displayedScore}</span>
     `;

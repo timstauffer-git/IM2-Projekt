@@ -128,6 +128,10 @@ body {
   border: none;
   border-radius: var(--memory-card-radius);
   cursor: pointer;
+  background: transparent;
+  padding: 0;
+  perspective: 1000px;
+  appearance: none;
 }
 
 .memory-card-inner {
@@ -137,6 +141,7 @@ body {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
+  border-radius: var(--memory-card-radius);
 }
 
 .memory-card.is-flipped .memory-card-inner,
@@ -150,6 +155,7 @@ body {
   inset: 0;
   border-radius: var(--memory-card-radius);
   backface-visibility: hidden;
+  overflow: hidden;
 }
 
 /* Rückseite Memorykarte (Schriftgrössen / Varianten) */
