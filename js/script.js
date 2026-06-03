@@ -1,12 +1,16 @@
 // ----- Memory-Spielfeld -----
 const memory = document.querySelector(".memory");
 
+// ----- Leaderboard -----
+const leaderboardList = document.querySelector(".leaderboard-list");
+
 // ----- Spielanleitung -----
 const instructions = document.querySelector(".instructions");
 const instructionsToggle = document.querySelector(".instructions-toggle");
 
 // ----- API_URL-----
 const API_URL = "./js/api_cors_bridge.php";
+
 
 // ----- Kartendaten mit jeweiliger ID, falls API nicht lädt -----
 const fallbackData = [
@@ -99,13 +103,64 @@ const fallbackData = [
   },
 ];
 
+// ----- Leaderboard-Daten -----
+const leaderboardData = [
+  {
+    name: "YOU",
+    score: 0,
+    isPlayer: true,
+  },
+  {
+    name: "HAM",
+    score: 22,
+  },
+  {
+    name: "LEC",
+    score: 26,
+  },
+  {
+    name: "ROS",
+    score: 30,
+  },
+  {
+    name: "VET",
+    score: 34,
+  },
+  {
+    name: "HUL",
+    score: 38,
+  },
+  {
+    name: "MAS",
+    score: 42,
+  },
+  {
+    name: "VER",
+    score: 46,
+  },
+  {
+    name: "ALO",
+    score: 50,
+  },
+  {
+    name: "GRO",
+    score: 54,
+  },
+  {
+    name: "MAG",
+    score: Infinity,
+  },
+];
+
 // ----- Spielzustand (Karte1, Karte2, Speere wenn zwei Karten aufgedeckt)  -----
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
+let clickCount = 0;
 
 // ----- Spielstart -----
 startGame();
+updateLeaderboard();
 
 memory.addEventListener("click", handleCardClick);
 
@@ -118,7 +173,8 @@ async function startGame() {
   try {
     const quotes = await fetchQuotes();
 
-    console.log("API Daten:", quotes);
+    //Für API testen:
+    //console.log("API Daten:", quotes);
 
     const cardData = createCardDataFromQuotes(quotes);
 
@@ -235,6 +291,8 @@ function handleCardClick(event) {
   if (clickedCard === firstCard) return;
   if (clickedCard.classList.contains("is-matched")) return;
 
+  countClick();
+
   clickedCard.classList.add("is-flipped");
 
   if (!firstCard) {
@@ -275,6 +333,45 @@ function resetTurn() {
 // ----- Mischen der Karten -----
 function shuffleCards(cards) {
   return [...cards].sort(() => Math.random() - 0.5);
+}
+
+// ----- Klicks zählen -----
+function countClick() {
+  clickCount++;
+
+  const player = leaderboardData.find((entry) => entry.isPlayer);
+  player.score = clickCount;
+
+  updateLeaderboard();
+}
+
+// ----- Leaderboard aktualisieren -----
+function updateLeaderboard() {
+  const sortedLeaderboard = [...leaderboardData].sort(
+    (entryA, entryB) => entryA.score - entryB.score
+  );
+
+  leaderboardList.innerHTML = "";
+
+  sortedLeaderboard.forEach((entry, index) => {
+    const listItem = document.createElement("li");
+
+    listItem.classList.add("leaderboard-item");
+
+    if (entry.isPlayer) {
+      listItem.classList.add("leaderboard-item--active");
+    }
+
+    const displayedScore = entry.score === Infinity ? "OUT" : entry.score;
+
+    listItem.innerHTML = `
+      <span class="leaderboard-rank">${index + 1}</span>
+      <span class="leaderboard-name">${entry.name}</span>
+      <span class="leaderboard-score">${displayedScore}</span>
+    `;
+
+    leaderboardList.appendChild(listItem);
+  });
 }
 
 // ----- Anleitung Öffnen und Schliessen -----
