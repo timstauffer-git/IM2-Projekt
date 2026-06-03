@@ -145,7 +145,11 @@ async function fetchQuotes() {
 
 // ----- API-Daten in Memory-Karten umwandeln -----
 function createCardDataFromQuotes(quotes) {
-  const quotesWithYear = quotes.filter((quote) => quote.year);
+
+  // Entfernt Quotes ohne Jahr und zu lange Quotes für das Memory-Spiel
+  const quotesWithYear = quotes.filter(
+    (quote) => quote.year && quote.quote.length <= 70
+  );
 
   const shuffledQuotes = shuffleCards(quotesWithYear);
 
