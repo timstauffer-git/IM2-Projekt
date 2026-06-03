@@ -5,8 +5,8 @@ const memory = document.querySelector(".memory");
 const instructions = document.querySelector(".instructions");
 const instructionsToggle = document.querySelector(".instructions-toggle");
 
-// ----- API -----
-const API_URL = "https://kimiquotes.pages.dev/api/quotes";
+// ----- API_URL-----
+const API_URL = "./js/api_cors_bridge.php";
 
 // ----- Kartendaten mit jeweiliger ID, falls API nicht lädt -----
 const fallbackData = [
