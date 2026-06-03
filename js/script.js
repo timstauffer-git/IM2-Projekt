@@ -147,7 +147,21 @@ async function fetchQuotes() {
 function createCardDataFromQuotes(quotes) {
   const quotesWithYear = quotes.filter((quote) => quote.year);
 
-  const selectedQuotes = shuffleCards(quotesWithYear).slice(0, 8);
+  const shuffledQuotes = shuffleCards(quotesWithYear);
+
+  // Speichert ausgewählte Quotes für aktuelle Runde
+  const selectedQuotes = [];
+  const usedYears = [];
+
+  shuffledQuotes.forEach((quote) => {
+    if (selectedQuotes.length >= 8) return;
+
+    // lässt jedes Jahr (z.B. 2008) nur 1 Mal zu 
+    if (usedYears.includes(quote.year)) return;
+
+    selectedQuotes.push(quote);
+    usedYears.push(quote.year);
+  });
 
   const cards = [];
 
@@ -188,6 +202,7 @@ function createCards(cardData) {
     // Button bekommt CSS-Klassen
     button.classList.add("memory-card");
     button.classList.add(`memory-card--${cardColor}`);
+    button.classList.add(`memory-card--${card.type}`);
 
     button.type = "button";
     button.dataset.pairId = card.pairId;
