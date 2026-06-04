@@ -132,6 +132,7 @@ Ice-the-year/
 │   └── Audiowide-Regular.ttf
 └── .vscode/
     └── sftp.json
+```
 
 ---
 
@@ -257,5 +258,7 @@ Das Desktop-Layout mit Memory und Leaderboard nebeneinander musste für Mobile s
 - Live Website: `https://im2.bavuwore.myhostpoint.ch/`
 - GitHub Repository: `https://github.com/timstauffer-git/IM2-Projekt`
 - Figma-Prototyp: `https://www.figma.com/design/XPvdyjOfTZJLcuAHlgKZp0/IM-2-%E2%80%93-Konzeption-Abgabefile?node-id=971-254&t=FTSeq2T5hqYYk711-1s`
+
+```
 
 ```
