@@ -20,13 +20,14 @@
   font-style: normal;
 }
 
-/* ========== Root (variabeln) ========== */
+/* ========== Root-Variablen: Farben, Schriften und Layoutgrössen ========== */
 
 :root {
-  --color-grey: #2f2f2f;
-  --color-blue: #8bc5e4;
   --color-black: #000000;
+  --color-grey: #2f2f2f;
   --color-white: #ffffff;
+  --color-blue: #8bc5e4;
+  --color-bluebackground: #8bc5e4f0;
 
   --font-primary: "PrimaryFont", Arial, Helvetica, sans-serif;
   --font-title: "TitleFont", Arial, Helvetica, sans-serif;
@@ -72,7 +73,6 @@ body {
 .game-board {
   --instructions-gap-top: 18px;
   --instructions-padding: 36px 40px;
-  --instructions-overlay-color: rgba(139, 197, 228, 0.94);
 
   width: var(--memory-size);
 }
@@ -112,7 +112,7 @@ body {
   color: var(--color-blue);
 }
 
-/* ========== Memory ========== */
+/* ========== Memory (Spielfeld / Kartenraster 4x4) ========== */
 
 .memory {
   display: grid;
@@ -252,7 +252,7 @@ body {
   overflow-y: auto;
   padding: var(--instructions-padding);
   border-radius: var(--memory-card-radius);
-  background-color: var(--instructions-overlay-color);
+  background-color: var(--color-bluebackground);
   color: var(--color-black);
   font-family: var(--font-primary);
   font-size: 22px;
@@ -341,7 +341,6 @@ body {
 }
 
 /* ----- Lottie Race Overlay ----- */
-/* ----- Lottie Race Overlay ----- */
 
 .lottie-race-overlay {
   position: absolute;
@@ -349,7 +348,7 @@ body {
   z-index: 20;
 
   border-radius: var(--memory-card-radius);
-  background-color: var(--instructions-overlay-color);
+  background-color: var(--color-bluebackground);
 
   pointer-events: auto;
 }
@@ -402,7 +401,8 @@ footer {
   text-align: center;
 }
 
-/* ========== Mobile ========== */
+
+/* ========== Mobile Ansicht bis 1200px ========== */
 
 @media (max-width: 1200px) {
   body {

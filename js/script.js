@@ -8,11 +8,11 @@ const leaderboardList = document.querySelector(".leaderboard-list");
 const instructions = document.querySelector(".instructions");
 const instructionsToggle = document.querySelector(".instructions-toggle");
 
-// ----- API_URL-----
+// ----- API_URL (bzw. API-Verbindung über PHP-Bridge wegen CORS) ----- 
 const API_URL = "./js/api_cors_bridge.php";
 
 
-// ----- Kartendaten mit jeweiliger ID, falls API nicht lädt -----
+// ----- Fallback-Daten, falls API nicht erreichbar ist -----
 const fallbackData = [
   {
     pairId: 1,
@@ -157,7 +157,7 @@ let lockBoard = false;
 let clickCount = 0;
 let matchedPairs = 0;
 let isGameFinished = false;
-let isGameLocked = true;
+let isGameLocked = true; // Spiel bleibt gesperrt, bis die Startanimation fertig ist
 
 // ----- Spielstart -----
 startGame();
