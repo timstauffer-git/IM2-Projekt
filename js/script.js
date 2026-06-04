@@ -331,7 +331,7 @@ function checkForMatch() {
       firstCard.classList.remove("is-flipped");
       secondCard.classList.remove("is-flipped");
       resetTurn();
-    }, 1800);
+    }, 2100);
   }
 }
 
