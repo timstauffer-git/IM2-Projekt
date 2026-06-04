@@ -387,7 +387,7 @@ function updateLeaderboard() {
       listItem.classList.add("leaderboard-item--active");
     }
 
-    let displayedScore;
+     let displayedScore;
 
     if (entry.score === Infinity) {
     displayedScore = "OUT";

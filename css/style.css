@@ -216,6 +216,15 @@ body {
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.instructions-toggle:hover {
+  transform: scale(1.04);
+}
+
+.instructions-toggle:active {
+  transform: scale(0.97);
 }
 
 .instructions-arrow {
@@ -400,7 +409,6 @@ footer {
   color: var(--color-blue);
   text-align: center;
 }
-
 
 /* ========== Mobile Ansicht bis 1200px ========== */
 
